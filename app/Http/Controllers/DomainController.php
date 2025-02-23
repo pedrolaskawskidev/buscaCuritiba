@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Domain;
+use App\Models\Owner;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DomainController extends Controller
@@ -17,36 +19,33 @@ class DomainController extends Controller
         return view('domain.index', ['domain'=> $domain]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $owners = Owner::get();
+        return view('domain.create', ['owner' => $owners]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
-        //
+        $domain = $request->all();
+
+        $domain['cretaed'] = Carbon::now()->format('Y-m-d');
+        $domain['updated'] = Carbon::now()->format('Y-m-d');
+
+        Domain::create($domain);
+
+        return redirect()->route('domain.index');
+
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Domain $domain)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Domain $domain)
+    public function edit($id)
     {
-        //
+        $domain = Domain::findOrFail($id);
+        $owners = Owner::get();
+        return view ('domain.edit', ['domain' => $domain, 'owner' => $owners]);
     }
 
     /**
@@ -54,14 +53,19 @@ class DomainController extends Controller
      */
     public function update(Request $request, Domain $domain)
     {
-        //
+        $data = $request->all();
+        $domain = Domain::findOrFail($data['id']);
+        $domain->update($data);
+
+        return redirect()->route('domain.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Domain $domain)
+    public function destroy($id)
     {
-        //
+        $domain = Domain::find($id);
+        $domain->delete();
+
+        return redirect()->route('domain.index');
+
     }
 }

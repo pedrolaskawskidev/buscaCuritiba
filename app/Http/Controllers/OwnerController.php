@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Owner;
+use Bissolli\ValidadorCpfCnpj\CNPJ;
+use Bissolli\ValidadorCpfCnpj\CPF;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
@@ -12,7 +14,17 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        //
+        $owners = Owner::get();
+
+        foreach ($owners as $owner) {
+            if ($owner->document == 'CPF') {
+                $owner->document_number = (new CPF($owner->document_number))->format();  // Modifique o atributo do owner
+            } else {
+                $owner->document_number = (new CNPJ($owner->document_number))->format();  // Modifique o atributo do owner
+            }
+        }
+   
+        return view('owner.index', ['owner' => $owners]);
     }
 
     /**
