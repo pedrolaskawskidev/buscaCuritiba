@@ -30,7 +30,7 @@ class DomainController extends Controller
     {
         $domain = $request->all();
 
-        $domain['cretaed'] = Carbon::now()->format('Y-m-d');
+        $domain['created'] = Carbon::now()->format('Y-m-d');
         $domain['updated'] = Carbon::now()->format('Y-m-d');
 
         Domain::create($domain);
@@ -48,13 +48,11 @@ class DomainController extends Controller
         return view ('domain.edit', ['domain' => $domain, 'owner' => $owners]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Domain $domain)
     {
         $data = $request->all();
         $domain = Domain::findOrFail($data['id']);
+        $domain['updated'] = Carbon::now()->format('Y-m-d');
         $domain->update($data);
 
         return redirect()->route('domain.index');

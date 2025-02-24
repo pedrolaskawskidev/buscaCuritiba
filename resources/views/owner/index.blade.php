@@ -2,7 +2,8 @@
 
 @section('owner.index')
     <div class="text-end m-3">
-        <a title="Adicionar" class="btn btn-success" href="{{ route('owner.create') }}"><i class="bi bi-person-fill-add"></i></a>
+        <a title="Adicionar" class="btn btn-success" href="{{ route('owner.create') }}"><i
+                class="bi bi-person-fill-add"></i></a>
     </div>
     <div class="text-center m-3">
         <table class="table">
@@ -28,7 +29,7 @@
                         <td>{{ phone($owner->phone, 'BR')->formatNational() }}</td>
                         <td>
                             <a type="button" title="Editar" class="btn btn-warning"
-                                href="{{ route('domain.edit', ['id' => $owner->id]) }}"><i
+                                href="{{ route('owner.edit', ['id' => $owner->id]) }}"><i
                                     class="bi bi-pencil-square"></i></a>
                             &nbsp
                             <a type="button" title="Excluir"class="btn btn-danger"
@@ -38,4 +39,5 @@
                     </tr>
                 @endforeach
             </tbody>
-        @endsection
+        </table>
+    @endsection

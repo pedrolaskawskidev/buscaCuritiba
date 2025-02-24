@@ -12,6 +12,12 @@ class Owner extends Model
 
     protected $table = 'owner';
 
-    
+    protected $fillable = [
+        'name',
+        'document',
+        'document_number',
+        'phone',
+        'email',
+    ];
 
 }

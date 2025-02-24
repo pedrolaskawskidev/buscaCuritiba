@@ -18,8 +18,8 @@ class Domain extends Model
         'extension',
         'status',
         'host',
-        'ip_adress',
-        'cretaed',
+        'ip_address',
+        'created',
         'expiration',
         'updated'
     ];

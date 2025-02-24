@@ -29,7 +29,7 @@
                         $expirationDate = Carbon\Carbon::parse($domain->expiration);
                         $today = Carbon\Carbon::today();
                         $countDay = $today->diffInDays($expirationDate);
-                        $rowClass = ''; // Valor padrão
+                        $rowClass = '';
 
                         if ($expirationDate->isPast()) {
                             $rowClass = 'table-danger';
@@ -44,8 +44,8 @@
                         <td>{{ $domain->owner->name }}</td>
                         <td>{{ $domain->status == 'valid' ? 'Ativo' : 'Expirado' }}</td>
                         <td>{{ $domain->host }}</td>
-                        <td>{{ $domain->ip_adress }}</td>
-                        <td>{{ Carbon\Carbon::parse($domain->cretaed)->format('d/m/Y') }}</td>
+                        <td>{{ $domain->ip_address }}</td>
+                        <td>{{ Carbon\Carbon::parse($domain->created)->format('d/m/Y') }}</td>
                         <td>{{ Carbon\Carbon::parse($domain->expiration)->format('d/m/Y') }}</td>
                         <td>{{ Carbon\Carbon::parse($domain->updated)->format('d/m/Y') }}</td>
                         <td>

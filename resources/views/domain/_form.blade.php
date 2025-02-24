@@ -17,9 +17,9 @@
                 <select class="form-select" name="owner_id" id="owner_id" aria-label="Selecione">
                     <option selected>Selecione</option>
                     @foreach ($owner as $owner)
-                    <option value="{{ $owner->id }}"  @selected(old('owner', $domain->owner->id ?? '') == $owner->id)>
-                        {{$owner->name}}
-                    </option>
+                        <option value="{{ $owner->id }}" @selected(old('owner', $domain->owner->id ?? '') == $owner->id)>
+                            {{ $owner->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -43,20 +43,19 @@
                     value="{{ $domain ? $domain->host : old('host', $domain->host ?? '') }}">
             </div>
             <div class="col-auto">
-                <label for="ip_adress" class="form-label">Endereço IP</label>
-                <input type="text" name="ip_adress" id="ip_adress" class="form-control"
-                    value="{{ $domain ? $domain->ip_adress : old('ip_adress', $domain->ip_adress ?? '') }}">
+                <label for="ip_address" class="form-label">Endereço IP</label>
+                <input type="text" name="ip_address" id="ip_address" class="form-control"
+                    value="{{ $domain ? $domain->ip_address : old('ip_address', $domain->ip_address ?? '') }}">
             </div>
         </div>
         <div class="mb-3 w-25">
             <label for="expiration" class="form-label">Expiração</label>
-            <input type="date" name="expiration" id="expiration" class="form-control"  min="{{ \Carbon\Carbon::today()->toDateString() }}"
+            <input type="date" name="expiration" id="expiration" class="form-control"
+                min="{{ \Carbon\Carbon::today()->toDateString() }}"
                 value="{{ $domain ? $domain->expiration : old('expiration', $domain->expiration ?? '') }}">
         </div>
         <div class="text-end">
             <button type="submit" class="btn btn-success button-save-form ladda-button">Salvar</button>
         </div>
     </div>
-
-
 </form>

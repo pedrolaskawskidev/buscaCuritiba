@@ -5,8 +5,8 @@
         @foreach ($domain as $domain)
             <ul class="list-group mb-3">
                 <li>
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse-{{ $domain->id }}"
-                        role="button" aria-expanded="false" aria-controls="collapse-{{ $domain->id }}">
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse-{{ $domain->id }}" role="button"
+                        aria-expanded="false" aria-controls="collapse-{{ $domain->id }}">
                         {{ $domain->name }}
                     </a>
                 </li>
@@ -34,11 +34,11 @@
                         </li>
                         <li class="list-group">
                             IP
-                        <li class="list-group-item">{{ $domain->ip_adress }}</li>
+                        <li class="list-group-item">{{ $domain->ip_address }}</li>
                         </li>
                         <li class="list-group">
                             Criado em
-                        <li class="list-group-item">{{ Carbon\Carbon::parse($domain->cretaed)->format('d/m/Y') }}
+                        <li class="list-group-item">{{ Carbon\Carbon::parse($domain->created)->format('d/m/Y') }}
                         </li>
                         </li>
                         <li class="list-group">
@@ -51,14 +51,17 @@
                         <li class="list-group-item mb-2">
                             {{ Carbon\Carbon::parse($domain->expiration)->format('d/m/Y') }}</li>
                         </li>
+                        <li class="list-group mb-2">
+                            <a type="button" title="Editar" class="btn btn-warning"
+                                href="{{ route('domain.edit', ['id' => $domain->id]) }}">Editar</a>
+                        </li>
                         <li class="list-group">
-                            <button type="button" class="btn btn-warning mb-1">Atualizar</button>
-                            <button type="button" class="btn btn-danger mb-1">Excluir</button>
+                            <a type="button" title="Excluir"class="btn btn-danger"
+                                href="{{ route('domain.destroy', ['id' => $domain->id]) }}">Excluir</a>
                         </li>
                     </div>
                 </div>
             </ul>
         @endforeach
     </div>
-    <a href="{{ route('generatepdf') }}" target="_blank" class="btn btn-warning btn-sm">Gerar PDF</a>
 @endsection

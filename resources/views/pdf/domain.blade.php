@@ -1,17 +1,20 @@
-@extends('layouts.app')
-@section('domain_pdf')
-<style>
-    table {
-        border: 1px solid black;
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid black;
-        padding: 10px;
-        text-align: left;
-    }
-</style>
+@extends('pdf.base')
+
+@section('domain')
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 
     <table class="table">
         <thead>
@@ -29,14 +32,27 @@
         </thead>
         <tbody>
             @foreach ($domain as $domain)
-                <tr>
+                @php
+
+                    $expirationDate = Carbon\Carbon::parse($domain->expiration);
+                    $today = Carbon\Carbon::today();
+                    $countDay = $today->diffInDays($expirationDate);
+                    $rowColor = '';
+
+                    if ($expirationDate->isPast()) {
+                        $rowColor = 'background-color:#c6acae';
+                    } elseif ($countDay < 10) {
+                        $rowColor = 'background-color:#fff3cd';
+                    }
+                @endphp
+                <tr style="{{ $rowColor }}">
                     <th scope="row">{{ $domain->id }}</th>
                     <td>{{ $domain->name }}</td>
                     <td>{{ $domain->extension }}</td>
                     <td>{{ $domain->status == 'valid' ? 'Ativo' : 'Expirado' }}</td>
                     <td>{{ $domain->host }}</td>
-                    <td>{{ $domain->ip_adress }}</td>
-                    <td>{{ Carbon\Carbon::parse($domain->cretaed)->format('d/m/Y') }}</td>
+                    <td>{{ $domain->ip_address }}</td>
+                    <td>{{ Carbon\Carbon::parse($domain->created)->format('d/m/Y') }}</td>
                     <td>{{ Carbon\Carbon::parse($domain->expiration)->format('d/m/Y') }}</td>
                     <td>{{ Carbon\Carbon::parse($domain->expiration)->format('d/m/Y') }}</td>
                 </tr>

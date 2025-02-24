@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Domain;
 use App\Models\Owner;
 use Bissolli\ValidadorCpfCnpj\CNPJ;
 use Bissolli\ValidadorCpfCnpj\CPF;
@@ -32,46 +33,49 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('owner.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(Request $request)
     {
-        //
+        $owner = $request->all();
+        $owner['phone'] = preg_replace("/[^0-9]/", "", $owner['phone']);
+        $owner['document_number'] = preg_replace("/[^0-9]/", "", $owner['document_number']);
+       
+        Owner::create($owner);
+
+        return redirect()->route('owner.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Owner $owner)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Owner $owner)
+    public function edit($id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+        return view ('owner.edit', ['owner' => $owner]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Owner $owner)
+    public function update($request)
     {
-        //
+        $data = $request->all();
+        $owner = Owner::findOrFail($data['id']);
+        $owner->update($data);
+
+        return redirect()->route('owner.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Owner $owner)
+    
+    public function destroy($id)
     {
-        //
+        $owner = Owner::find($id);
+        
+        //deletando os dominios ligados ao proprietario
+        Domain::where('owner_id', $owner->id)->delete();
+
+        $owner->delete();
+        return redirect()->route('owner.index');
     }
 }

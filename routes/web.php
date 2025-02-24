@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 
 Route::middleware('auth', 'verified')->group(function () {
@@ -34,15 +30,20 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/pdf', [PDFController::class, 'generatePDF'])->name('generatepdf');
+    
+    Route::prefix('pdf')->controller(PDFController::class)->group(function(){
+        Route::get('/{string}/domain', [PDFController::class, 'generatePDFDomain'])->name('pdf.domain');
+        Route::get('/owner', [PDFController::class, 'generatePDFOwner'])->name('pdf.owner');
 
-    Route::controller(DomainController::class)->group(function(){
-        Route::get('/domain/index', 'index')->name('domain.index');
-        Route::get('/domain/create', 'create')->name('domain.create');
-        Route::post('/domain/store', 'post')->name('domain.store');
-        Route::get('/domain/{id}/edit', 'edit')->name('domain.edit');
-        Route::put('/domain/{id}/update', 'update')->name('domain.update');
-        Route::get('/domain/{id}/destroy', 'destroy')->name('domain.destroy');
+    });
+
+    Route::prefix('domain')->controller(DomainController::class)->group(function(){
+        Route::get('/index', 'index')->name('domain.index');
+        Route::get('/create', 'create')->name('domain.create');
+        Route::post('/store', 'post')->name('domain.store');
+        Route::get('/{id}/edit', 'edit')->name('domain.edit');
+        Route::put('/{id}/update', 'update')->name('domain.update');
+        Route::get('/{id}/destroy', 'destroy')->name('domain.destroy');
     });
 
     Route::prefix('owner')->controller(OwnerController::class)->group(function(){

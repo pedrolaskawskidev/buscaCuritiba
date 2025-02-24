@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('extension', '10');
             $table->enum('status', ['valid', 'expired']);
             $table->string('host', 50);
-            $table->string('ip_adress', 50);
-            $table->date('cretaed');
+            $table->string('ip_address', 50);
+            $table->date('created');
             $table->date('expiration');
             $table->date('updated');
 
