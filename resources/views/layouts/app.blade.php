@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', 'Home')</title>
 
     {{-- <link rel="stylesheet" href="{{ public_path('css/bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('/css/styles.css') }}">
@@ -19,12 +19,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="
-                https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js
-                "></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand">Controle de Domínios</a>
@@ -41,11 +40,16 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('domain.index') }}">Listar</a></li>
                             <li><a class="dropdown-item" href="{{ route('domain.create') }}">Cadastrar</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li class="dropdown-item">Relatórios</li>
-                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'all']) }}" target="_blank">Todos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'expired']) }}" target="_blank">Vencidos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'closer']) }}" target="_blank">A vencer</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'all']) }}"
+                                    target="_blank">Todos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'expired']) }}"
+                                    target="_blank">Vencidos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pdf.domain', ['string' => 'closer']) }}"
+                                    target="_blank">A vencer</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -56,17 +60,25 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('owner.index') }}">Listar</a></li>
                             <li><a class="dropdown-item" href="{{ route('owner.create') }}">Cadastrar</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li class="dropdown-item">Relatórios</li>
                             <li><a class="dropdown-item" href="{{ route('pdf.owner') }}" target="_blank">Todos</a></li>
                         </ul>
                     </li>
             </div>
+            <div class="text-end me-2">{{ Auth::user()->name }}</div>
+            <form id="logout-form" action="{{ route('logout') }}" method="post">
+                @csrf
+                <a class="btn btn-danger" href="#" 
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+            </form>
         </div>
     </nav>
 
     @yield('dashboard')
-
     @yield('domain.index')
     @yield('domain.create')
     @yield('domain.edit')

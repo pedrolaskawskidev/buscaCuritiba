@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Proprietários')
 
 @section('owner.edit')
 <div class="card">

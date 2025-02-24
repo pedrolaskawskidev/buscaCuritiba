@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Domínios')
 
 @section('domain.create')
 <div class="card">

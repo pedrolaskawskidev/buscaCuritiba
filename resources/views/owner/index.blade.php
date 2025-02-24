@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Proprietários')
+
 @section('owner.index')
     <div class="text-end m-3">
         <a title="Adicionar" class="btn btn-success" href="{{ route('owner.create') }}"><i
