@@ -22,7 +22,9 @@ cp env,example .env
  ```
 E coloque os as credenciais do seu banco de dados, caso queria.
 Agora, gere a chave da aplicação com o comando:
-- php artisan key:generate
+```
+php artisan key:generate
+```
 
 ## Criando o banco de dados
 Para não ser necessário criar tudo do zero, basta rodar as migrations junto dos seeders.
