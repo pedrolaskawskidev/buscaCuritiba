@@ -36,6 +36,8 @@ php artisan migrate --seed
 
 ## Acessando o projeto.
 
+Vá para o site: - http://35.173.136.58/
+
 Para acessar o projeto basta colocar no login
 - pedro@example.com
 - password
