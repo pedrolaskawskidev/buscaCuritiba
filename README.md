@@ -19,7 +19,7 @@ npm install
 ```
 Após rodar os comandos com sucesso, execute:
 ```
-cp env,example .env
+cp env.example .env
  ```
 E coloque os as credenciais do seu banco de dados, caso queria.
 Agora, gere a chave da aplicação com o comando:
