@@ -7,8 +7,9 @@ Foi utilizado Laravel 10 e PHP 8.x .
 
 
 ## Clone o projeto
-
-> git clone https://github.com/pedrolaskawskidev/buscaCuritiba.git
+```
+ git clone https://github.com/pedrolaskawskidev/buscaCuritiba.git
+```
 
 ## Execute os comandos 
 ```
